@@ -2,26 +2,55 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Happy Birthday</title>
+  <title>Happy Birthday - Modern Design</title>
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       height: 100vh;
       overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #ffc0cb; /* hồng phấn */
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
       color: #fff;
-      font-family: "Comic Sans MS", cursive, sans-serif;
+      font-family: 'Arial', sans-serif;
       text-align: center;
+      position: relative;
+    }
+
+    /* Animated background pattern */
+    .bg-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.3) 2px, transparent 2px),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.2) 1px, transparent 1px),
+        radial-gradient(circle at 40% 40%, rgba(255,255,255,0.1) 3px, transparent 3px);
+      background-size: 50px 50px, 30px 30px, 70px 70px;
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-50px, -50px); }
     }
 
     #rotate-message {
       display: none;
       font-size: 1.5em;
       padding: 20px;
-      color: #d63384;
+      color: #fff;
+      background: rgba(0,0,0,0.8);
+      border-radius: 10px;
     }
 
     #main-content {
@@ -37,56 +66,69 @@
       #rotate-message { display: block; }
     }
 
-    /* Slideshow */
+    /* Modern slideshow với glassmorphism */
     .slideshow {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 80%;
-      max-width: 600px;
-      height: 60%;
+      width: 85%;
+      max-width: 700px;
+      height: 65%;
       overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+      z-index: 10;
     }
 
     .slides {
       display: flex;
       width: 500%;
       height: 100%;
-      animation: slide 20s infinite;
+      animation: slide 25s infinite ease-in-out;
     }
 
     .slides img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      filter: brightness(0.9) contrast(1.1);
     }
 
     @keyframes slide {
-      0% { margin-left: 0; }
-      20% { margin-left: 0; }
-      25% { margin-left: -100%; }
-      45% { margin-left: -100%; }
-      50% { margin-left: -200%; }
-      70% { margin-left: -200%; }
-      75% { margin-left: -300%; }
-      95% { margin-left: -300%; }
-      100% { margin-left: -400%; }
+      0%, 18% { margin-left: 0; }
+      22%, 38% { margin-left: -100%; }
+      42%, 58% { margin-left: -200%; }
+      62%, 78% { margin-left: -300%; }
+      82%, 100% { margin-left: -400%; }
     }
 
-    /* Lời chúc */
+    /* Modern message với gradient text */
     .message {
       position: absolute;
-      bottom: 10%;
+      bottom: 8%;
       width: 100%;
       text-align: center;
-      font-size: 2em;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      font-size: 2.5em;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      z-index: 15;
+      animation: glow 3s infinite alternate;
     }
 
-    /* Canvas pháo hoa */
+    @keyframes glow {
+      0% { filter: drop-shadow(0 0 5px rgba(255,255,255,0.8)); }
+      100% { filter: drop-shadow(0 0 20px rgba(255,255,255,1)); }
+    }
+
+    /* Canvas effects */
     canvas {
       position: fixed;
       top: 0;
@@ -95,15 +137,55 @@
       height: 100%;
       pointer-events: none;
     }
+
+    /* Floating decorative elements */
+    .floating-element {
+      position: absolute;
+      opacity: 0.8;
+      animation: floatAround 15s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes floatAround {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-20px) rotate(90deg); }
+      50% { transform: translateY(0) rotate(180deg); }
+      75% { transform: translateY(20px) rotate(270deg); }
+    }
+
+    /* Confetti animation */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ff6b6b;
+      animation: confetti-fall 3s infinite linear;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="bg-pattern"></div>
+  
   <div id="rotate-message">
     📱 Vui lòng xoay ngang màn hình để xem thiệp 🎂
   </div>
 
   <div id="main-content">
-    <canvas id="fireworks"></canvas>
+    <!-- Canvas cho hiệu ứng -->
+    <canvas id="effects"></canvas>
+    
+    <!-- Slideshow -->
     <div class="slideshow">
       <div class="slides">
         <img src="https://picsum.photos/id/1015/800/500" alt="Ảnh 1">
@@ -113,73 +195,284 @@
         <img src="https://picsum.photos/id/1041/800/500" alt="Ảnh 5">
       </div>
     </div>
+    
+    <!-- Lời chúc hiện đại -->
     <div class="message">
-      🎉 Chúc mừng sinh nhật 🎂<br>
+      🎉 CHÚC MỪNG SINH NHẬT 🎂<br>
       💖 Chúc bạn một ngày thật đặc biệt! 💖
     </div>
-    <audio autoplay loop>
-      <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
-    </audio>
   </div>
 
   <script>
-    // Hiệu ứng pháo hoa
-    const canvas = document.getElementById("fireworks");
+    const canvas = document.getElementById("effects");
     const ctx = canvas.getContext("2d");
-    let particles = [];
+    
+    let bubbles = [];
+    let cakes = [];
+    let stars = [];
+    let confetti = [];
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      initElements();
     }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
 
     function random(min, max) {
       return Math.random() * (max - min) + min;
     }
 
-    function createFirework() {
-      let x = random(100, canvas.width - 100);
-      let y = random(50, canvas.height / 2);
-      let count = random(30, 60);
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: x,
-          y: y,
-          angle: (Math.PI * 2) * (i / count),
-          speed: random(2, 6),
-          radius: 2,
-          life: 100
+    // Tạo bánh sinh nhật hiện đại
+    function drawModernCake(x, y, scale = 1) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+      
+      // Gradient cho bánh
+      let gradient = ctx.createLinearGradient(0, -30, 0, 30);
+      gradient.addColorStop(0, '#ff9a9e');
+      gradient.addColorStop(1, '#fecfef');
+      
+      // Thân bánh với gradient
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.roundRect(-25, 0, 50, 35, 8);
+      ctx.fill();
+      
+      // Lớp kem trên
+      let creamGradient = ctx.createLinearGradient(0, -15, 0, 5);
+      creamGradient.addColorStop(0, '#fff0c9');
+      creamGradient.addColorStop(1, '#ffb6c1');
+      
+      ctx.fillStyle = creamGradient;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 28, 12, 0, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Nến với hiệu ứng sáng
+      ctx.fillStyle = '#ffd700';
+      ctx.fillRect(-3, -25, 6, 25);
+      
+      // Lửa nến với gradient
+      let flameGradient = ctx.createRadialGradient(0, -28, 0, 0, -28, 8);
+      flameGradient.addColorStop(0, '#ffec8b');
+      flameGradient.addColorStop(0.7, '#ff6b6b');
+      flameGradient.addColorStop(1, 'transparent');
+      
+      ctx.fillStyle = flameGradient;
+      ctx.beginPath();
+      ctx.ellipse(0, -28, 5, 8, 0, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.restore();
+    }
+
+    // Tạo bong bóng hiện đại
+    function drawModernBubble(x, y, radius, hue) {
+      ctx.save();
+      
+      // Gradient cho bong bóng
+      let gradient = ctx.createRadialGradient(x - radius/3, y - radius/3, 0, x, y, radius);
+      gradient.addColorStop(0, `hsla(${hue}, 70%, 80%, 0.8)`);
+      gradient.addColorStop(0.7, `hsla(${hue}, 50%, 60%, 0.4)`);
+      gradient.addColorStop(1, `hsla(${hue}, 30%, 40%, 0.1)`);
+      
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Hiệu ứng sáng
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+      ctx.beginPath();
+      ctx.arc(x - radius/3, y - radius/3, radius/4, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.restore();
+    }
+
+    // Tạo ngôi sao
+    function drawStar(x, y, size, rotation) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotation);
+      
+      let gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, size);
+      gradient.addColorStop(0, '#fff');
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      for (let i = 0; i < 10; i++) {
+        let angle = (i * Math.PI) / 5;
+        let radius = i % 2 === 0 ? size : size / 2;
+        let x = Math.cos(angle) * radius;
+        let y = Math.sin(angle) * radius;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fill();
+      
+      ctx.restore();
+    }
+
+    // Khởi tạo các elements
+    function initElements() {
+      bubbles = [];
+      cakes = [];
+      stars = [];
+      
+      // Tạo bong bóng
+      for (let i = 0; i < 15; i++) {
+        bubbles.push({
+          x: random(0, canvas.width),
+          y: random(canvas.height + 100, canvas.height + 500),
+          radius: random(20, 60),
+          speed: random(0.5, 2),
+          hue: random(0, 360),
+          opacity: random(0.3, 0.8)
+        });
+      }
+      
+      // Tạo bánh sinh nhật
+      for (let i = 0; i < 5; i++) {
+        cakes.push({
+          x: random(100, canvas.width - 100),
+          y: random(canvas.height - 100, canvas.height + 50),
+          scale: random(0.8, 1.3),
+          speed: random(0.2, 0.8),
+          rotation: 0
+        });
+      }
+      
+      // Tạo ngôi sao
+      for (let i = 0; i < 20; i++) {
+        stars.push({
+          x: random(0, canvas.width),
+          y: random(0, canvas.height),
+          size: random(3, 8),
+          rotation: random(0, Math.PI * 2),
+          rotationSpeed: random(-0.02, 0.02),
+          twinkle: random(0, Math.PI * 2)
         });
       }
     }
 
-    function updateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = particles.length - 1; i >= 0; i--) {
-        let p = particles[i];
-        p.x += Math.cos(p.angle) * p.speed;
-        p.y += Math.sin(p.angle) * p.speed;
-        p.life--;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `hsl(${p.life * 3}, 100%, 50%)`;
-        ctx.fill();
-
-        if (p.life <= 0) {
-          particles.splice(i, 1);
+    // Tạo confetti
+    function createConfetti() {
+      if (Math.random() < 0.3) {
+        const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff'];
+        for (let i = 0; i < 3; i++) {
+          confetti.push({
+            x: random(0, canvas.width),
+            y: -10,
+            width: random(5, 10),
+            height: random(5, 10),
+            color: colors[Math.floor(Math.random() * colors.length)],
+            speed: random(2, 5),
+            rotation: 0,
+            rotationSpeed: random(-0.1, 0.1)
+          });
         }
       }
     }
 
-    setInterval(createFirework, 1500);
-    function loop() {
-      updateParticles();
-      requestAnimationFrame(loop);
+    // Animation loop
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Animate bubbles (chìm xuống)
+      bubbles.forEach((bubble, index) => {
+        bubble.y -= bubble.speed;
+        if (bubble.y + bubble.radius < 0) {
+          bubble.y = canvas.height + bubble.radius;
+          bubble.x = random(0, canvas.width);
+        }
+        
+        drawModernBubble(bubble.x, bubble.y, bubble.radius, bubble.hue);
+      });
+      
+      // Animate cakes (nổi lên)
+      cakes.forEach(cake => {
+        cake.y -= cake.speed;
+        if (cake.y < -100) {
+          cake.y = canvas.height + 50;
+          cake.x = random(100, canvas.width - 100);
+        }
+        
+        drawModernCake(cake.x, cake.y, cake.scale);
+      });
+      
+      // Animate stars
+      stars.forEach(star => {
+        star.rotation += star.rotationSpeed;
+        star.twinkle += 0.05;
+        let alpha = (Math.sin(star.twinkle) + 1) / 2 * 0.8 + 0.2;
+        
+        ctx.globalAlpha = alpha;
+        drawStar(star.x, star.y, star.size, star.rotation);
+        ctx.globalAlpha = 1;
+      });
+      
+      // Animate confetti
+      confetti.forEach((piece, index) => {
+        piece.y += piece.speed;
+        piece.rotation += piece.rotationSpeed;
+        
+        ctx.save();
+        ctx.translate(piece.x, piece.y);
+        ctx.rotate(piece.rotation);
+        ctx.fillStyle = piece.color;
+        ctx.fillRect(-piece.width/2, -piece.height/2, piece.width, piece.height);
+        ctx.restore();
+        
+        if (piece.y > canvas.height + 20) {
+          confetti.splice(index, 1);
+        }
+      });
+      
+      createConfetti();
+      requestAnimationFrame(animate);
     }
-    loop();
+
+    // Event listeners
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    animate();
+
+    // Tạo floating elements bổ sung
+    function createFloatingElements() {
+      const container = document.getElementById('main-content');
+      
+      // Tạo heart floating
+      for (let i = 0; i < 8; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = '💖';
+        heart.className = 'floating-element';
+        heart.style.fontSize = random(20, 35) + 'px';
+        heart.style.left = random(0, 90) + '%';
+        heart.style.top = random(0, 80) + '%';
+        heart.style.animationDelay = random(0, 5) + 's';
+        heart.style.animationDuration = random(10, 20) + 's';
+        container.appendChild(heart);
+      }
+      
+      // Tạo gift floating
+      for (let i = 0; i < 6; i++) {
+        const gift = document.createElement('div');
+        gift.innerHTML = '🎁';
+        gift.className = 'floating-element';
+        gift.style.fontSize = random(25, 40) + 'px';
+        gift.style.left = random(0, 90) + '%';
+        gift.style.top = random(0, 80) + '%';
+        gift.style.animationDelay = random(0, 5) + 's';
+        gift.style.animationDuration = random(15, 25) + 's';
+        container.appendChild(gift);
+      }
+    }
+
+    createFloatingElements();
   </script>
 </body>
 </html>
