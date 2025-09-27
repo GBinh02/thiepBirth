@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffc0cb; /* hồng phấn */
+      color: #fff;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      text-align: center;
+    }
+
+    #rotate-message {
+      display: none;
+      font-size: 1.5em;
+      padding: 20px;
+      color: #d63384;
+    }
+
+    #main-content {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media screen and (orientation: portrait) {
+      #main-content { display: none; }
+      #rotate-message { display: block; }
+    }
+
+    /* Slideshow */
+    .slideshow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 600px;
+      height: 60%;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    .slides {
+      display: flex;
+      width: 500%;
+      height: 100%;
+      animation: slide 20s infinite;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @keyframes slide {
+      0% { margin-left: 0; }
+      20% { margin-left: 0; }
+      25% { margin-left: -100%; }
+      45% { margin-left: -100%; }
+      50% { margin-left: -200%; }
+      70% { margin-left: -200%; }
+      75% { margin-left: -300%; }
+      95% { margin-left: -300%; }
+      100% { margin-left: -400%; }
+    }
+
+    /* Lời chúc */
+    .message {
+      position: absolute;
+      bottom: 10%;
+      width: 100%;
+      text-align: center;
+      font-size: 2em;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    }
+
+    /* Canvas pháo hoa */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="rotate-message">
+    📱 Vui lòng xoay ngang màn hình để xem thiệp 🎂
+  </div>
+
+  <div id="main-content">
+    <canvas id="fireworks"></canvas>
+    <div class="slideshow">
+      <div class="slides">
+        <img src="https://picsum.photos/id/1015/800/500" alt="Ảnh 1">
+        <img src="https://picsum.photos/id/1016/800/500" alt="Ảnh 2">
+        <img src="https://picsum.photos/id/1025/800/500" alt="Ảnh 3">
+        <img src="https://picsum.photos/id/1035/800/500" alt="Ảnh 4">
+        <img src="https://picsum.photos/id/1041/800/500" alt="Ảnh 5">
+      </div>
+    </div>
+    <div class="message">
+      🎉 Chúc mừng sinh nhật 🎂<br>
+      💖 Chúc bạn một ngày thật đặc biệt! 💖
+    </div>
+    <audio autoplay loop>
+      <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <script>
+    // Hiệu ứng pháo hoa
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createFirework() {
+      let x = random(100, canvas.width - 100);
+      let y = random(50, canvas.height / 2);
+      let count = random(30, 60);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: x,
+          y: y,
+          angle: (Math.PI * 2) * (i / count),
+          speed: random(2, 6),
+          radius: 2,
+          life: 100
+        });
+      }
+    }
+
+    function updateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        let p = particles[i];
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.life--;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `hsl(${p.life * 3}, 100%, 50%)`;
+        ctx.fill();
+
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+        }
+      }
+    }
+
+    setInterval(createFirework, 1500);
+    function loop() {
+      updateParticles();
+      requestAnimationFrame(loop);
+    }
+    loop();
+  </script>
+</body>
+</html>
